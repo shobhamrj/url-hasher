@@ -2,10 +2,11 @@ const serverless = require("serverless-http");
 const express = require("express");
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+require('dotenv').config()
 const URL = require('./models/URL')
 
 const app = express();
-const DB_URI = ''
+const DB_URI = process.env.MONGO_URI
 app.use(express.json());
 
 mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
@@ -57,10 +58,5 @@ app.get('/api/hash-url/:id', (req, res) => {
       })
 })
 
-// app.use((req, res, next) => {
-//   return res.status(404).json({
-//     error: "Not Found",
-//   });
-// });
-
+module.exports = app;
 module.exports.handler = serverless(app);
