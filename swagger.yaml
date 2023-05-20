@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: URL Hashing API
+  version: 1.0.0
+  description: API for hashing and accessing URLs
+paths:
+  /api/hash-url:
+    post:
+      summary: Create a new URL with a hashed URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The long URL to be hashed
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hashedURL:
+                    type: string
+                    description: The hashed URL generated for the long URL
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - URL
+
+  /api/hash-url/{id}:
+    get:
+      summary: Redirect to the long URL associated with the hashed URL
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The hashed URL
+      responses:
+        '302':
+          description: Found
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+      tags:
+        - URL
