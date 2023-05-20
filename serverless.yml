@@ -1,0 +1,16 @@
+service: url-hasher
+frameworkVersion: '3'
+plugins:
+  - serverless-offline
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi: '*'

@@ -1,0 +1,8 @@
+node_modules
+.serverless
+.env
+.DS_Store
+.modules.xml
+.workspace.xml
+.vcs.xml
+.idea
