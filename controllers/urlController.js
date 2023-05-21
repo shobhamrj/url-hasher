@@ -15,7 +15,7 @@ const hashUrl = async (req, res) => {
     })
     try{
         await newURL.save()
-    }catch (e) {
+    } catch (e) {
         console.error('Error hashing long URl: ', e)
         return res.status(500).send('An error occurred while saving it database')
     }

@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: URL Hashing API
+  title: url-hasherI
   version: 1.0.0
-  description: API for hashing and accessing URLs
+  description: API for hashing and accessing hashed URLs
 paths:
   /api/hash-url:
     post:
-      summary: Create a new URL with a hashed URL
+      summary: Create a new hashed URL with given URL
       requestBody:
         required: true
         content:
@@ -46,7 +46,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The hashed URL
+          description: Redirects to original URL
       responses:
         '302':
           description: Found
