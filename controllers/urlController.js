@@ -1,6 +1,9 @@
 const crypto = require('crypto');
 const URL = require('../models/URL')
 
+const redirectToDocs = (req, res) => {
+    return res.redirect('/api-docs')
+}
 const hashUrl = async (req, res) => {
     const longURL = req.body.url;
     if (!longURL) {
@@ -38,6 +41,7 @@ const getUrl = async (req, res) => {
 }
 
 module.exports = {
+    redirectToDocs,
     hashUrl,
     getUrl
 }
