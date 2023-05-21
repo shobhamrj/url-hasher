@@ -8,6 +8,8 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: ap-south-1
+  environment:
+    MONGO_URI: ${file(./secret.json):MONGO_URI}
 
 functions:
   api:

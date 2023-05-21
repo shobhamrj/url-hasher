@@ -52,10 +52,6 @@ paths:
           description: Found
         '400':
           description: Bad Request
-          content:
-            text/plain:
-              schema:
-                type: string
         '500':
           description: Internal Server Error
       tags:
