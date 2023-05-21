@@ -1,48 +1,40 @@
 const crypto = require('crypto');
-const  URL  = require('../models/URL')
+const URL = require('../models/URL')
 
-const hashUrl = (req, res) => {
+const hashUrl = async (req, res) => {
     const longURL = req.body.url;
-
-    if(!longURL) {
+    if (!longURL) {
         return res.status(400).send('URL Required!')
     }
     const hashedURL = crypto.createHash('sha256').update(longURL).digest('base64url').toString();
-
     const newURL = new URL({
-        longURL,
-        hashedURL
+        longURL, hashedURL
     })
-    newURL.save()
-        .then(() => {
-            return res.status(200).json({ hashedURL })
-        })
-        .catch((e) => {
-            console.error('Error hashing long URl: ', e)
-            return res.status(500).send('An error occurred while saving it database')
-        })
+    try{
+        await newURL.save()
+    }catch (e) {
+        console.error('Error hashing long URl: ', e)
+        return res.status(500).send('An error occurred while saving it database')
+    }
+    return res.status(200).json({hashedURL})
 }
 
-const getUrl =  (req, res) => {
+const getUrl = async (req, res) => {
     const hashedURL = req.params.id;
-    if(!hashedURL) {
+    if (!hashedURL) {
         return res.status(400).send('Bad Request')
     }
-    URL.findOne({hashedURL})
-        .then((url) => {
-            if(url) {
-                url.counter += 1
-                url.save()
-                    .then(() => {
-                        return res.redirect(url.longURL);
-                    })
-                    .error(e => res.status(500))
-            }
-            return res.status(400).send('Bad Request')
-        })
-        .catch(e => {
-            return res.status(500)
-        })
+    try {
+        const url = await URL.findOne({hashedURL})
+        if(!url) {
+            return res.sendStatus(400)
+        }
+        url.counter += 1
+        await url.save()
+        return res.redirect(url.longURL);
+    } catch (e) {
+        return res.sendStatus(400)
+    }
 }
 
 module.exports = {
