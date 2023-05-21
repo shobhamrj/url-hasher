@@ -10,7 +10,7 @@ app.use(express.json());
 const DB_URI = process.env.MONGO_URI
 const swaggerDocument = YAML.load('./swagger.yaml')
 
-mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(DB_URI, {useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => console.log('Connected to MongoDB'))
     .catch(e => console.log('Error connecting to MongoDB:', e))
 

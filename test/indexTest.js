@@ -12,7 +12,7 @@ describe('API Tests', () => {
             const url = 'https://www.youtube.com/';
             chai.request(app)
                 .post('/api/hash-url')
-                .send({ url })
+                .send({url})
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property('hashedURL');
